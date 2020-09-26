@@ -52,7 +52,7 @@ public class Newton {
     public static void main(String[] args) {
 
         // Build the Newton's Approximation problem to be solved: cos(x) = x
-        Newton newton = new Newton("cos(x) - x", (double x) -> Math.cos(x) - x, (double x) -> -Math.sin(x) - 1);
+        Newton newton = new Newton("sin(x) - x^2", (double x) -> Math.sin(x) - Math.pow(x, 2), (double x) -> Math.cos(x) - 2*x);
 
         // Solve the problem starting with a value of x = 1;
         // requiring a precision of 10^-7;
@@ -65,7 +65,7 @@ public class Newton {
                 System.err::println,
                 aDouble -> {
                     // Publish the happy news.
-                    System.out.println("Good news! " + newton.equation + " was solved: " + aDouble);
+                    System.out.println("Yay! We solved " + newton.equation + ": " + aDouble + " using Newton Raphson approximation");
                 });
     }
 
