@@ -136,88 +136,6 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
     private final Consumer<T> fPost;
 
     final static LazyLogger logger = new LazyLogger(Benchmark_Timer.class);
-    
-    
-    /**
-     * Generate a random array of size m.
-     *
-     * @param m the size of the random array to be generated.
-     * @return the randomly ordered Integer array of size m
-     */
-    public Integer[] generate_Random(int m) {
-    	Random random = new Random();
-    	Integer[] val = new Integer[m];
-    	for(int i = 0; i < m; i++) {
-    		val[i] = random.nextInt(m);
-    	}
-    	return val;
-    }
-    
-    /**
-     * Generate a reverse sorted array of random integers of size m
-     *
-     * @param m the size of the array to be generated.
-     * @return the reverse ordered Integer array of size m
-     */
-    public Integer[] generate_Reverse(int m) {
-    	Random random = new Random();
-    	Integer[] val = new Integer[m];
-    	for(int i = 0; i < m; i++) {
-    		val[i] = random.nextInt(m);
-    	}
-    	Arrays.sort(val, Collections.reverseOrder());
-    	return val;
-    }
-    
-    /**
-     * Generate a partially sorted array of random integers of size m
-     *
-     * @param m the size of the array to be generated.
-     * @return the partially ordered Integer array of size m
-     */
-    public Integer[] generate_PartiallySorted (int m) {
-    	Random random = new Random();
-    	Integer[] val = new Integer[m];
-    	
-    	//Generate the random array
-    	for(int i = 0; i < m; i++) {
-    		val[i] = random.nextInt(m*100);
-    	}
-    	
-    	//Sort the array
-    	Arrays.sort(val);
-    	
-    	//Disorder 20% of the array 
-    	int disorderNum = (int) (0.2*m);
-    	
-    	//Generate random indices to create disorder and replace it
-    	for(int i = 0; i < disorderNum; i++) {
-    		int index = random.nextInt(m);
-    		val[index] = random.nextInt(m*100);
-    	}
- 
-    	return val;
-    	}
-    
-    /**
-     * Generate an ordered array of random integers of size m
-     *
-     * @param m the size of the array to be generated.
-     * @return the randomly ordered Integer array of size m
-     */
-    public Integer[] generate_Ordered (int m) {
-    	Random random = new Random();
-    	Integer[] val = new Integer[m];
-    	
-    	//Generate the random array
-    	for(int i = 0; i < m; i++) {
-    		val[i] = random.nextInt(m*100);
-    	}
-    	
-    	//Sort the random array 
-    	Arrays.sort(val);
-    	return val;
-    	}
 
     public static void main(String[] args) {
         
@@ -232,7 +150,7 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
     	
     	//Instantiate Benchmark_Timer that invokes Timer class to perform Benchmark Test
     	Benchmark_Timer<Integer[]> benchmarkTimer = new Benchmark_Timer<>("Benchmark Test for Insertion Array", null, (a) -> sorter.sort(a, 0, a.length), null);
-    	
+ 
     	//Generate an ordered array for size 800 and double it till 200000, and run benchmark test
     	for(int i = 800; i < 200000; i = i*2) {
     		
@@ -393,7 +311,7 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
         	System.out.println("For input size: " + i + " and partially array,  insertion sort takes: " + d);
     	}
     	
-    	//Plot the results using BenchmarkPlotter
+//    	Plot the results using BenchmarkPlotter
     	BenchmarkPlotter benchmarkPlotter = new BenchmarkPlotter(xyseriesOrdered);
     	benchmarkPlotter.setVisible(true);
     }

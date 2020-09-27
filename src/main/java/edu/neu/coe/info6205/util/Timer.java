@@ -55,26 +55,40 @@ public class Timer {
      */
     public <T, U> double repeat(int n, Supplier<T> supplier, Function<T, U> function, UnaryOperator<T> preFunction, Consumer<U> postFunction) {
         logger.trace("repeat: with " + n + " runs");
+        
+        //Pause the timer once the function starts
         pause(); 
+        
         for(int i = 0; i < n; i++) {
+        	
+        	//Get the input to the function from supplier
         	T t = supplier.get();
         	
+        	//If a preFunction exists, use it for pre-processing the input to the function
         	if(preFunction!=null) {
         		t = preFunction.apply(t);
         	}
         	
+        	//Resume the timer to time the function
         	resume();
         	U u = function.apply(t);
+        	
+        	//Pause and count a lap
         	pauseAndLap();
         	
+        	//If a postFunction exists, use it to post-process the output of the function
         	if(postFunction!=null) {
         	
         		postFunction.accept(u);
         	}
         }
-        double meanLapTime =  meanLapTime();
+        
+        //Get the mean lap time
+        double meanTime =  meanLapTime();
+        
+        //Resume the timer and return the mean lap time
         resume();
-        return meanLapTime;
+        return meanTime;
     }
 
     /**
