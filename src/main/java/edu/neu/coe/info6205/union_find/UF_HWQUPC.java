@@ -61,6 +61,16 @@ public class UF_HWQUPC implements UF {
             System.out.printf("%d: %d, %d\n", i, parent[i], height[i]);
         }
     }
+    
+    /**
+     * Gets the maximum depth of the tree once all nodes are connected
+     *
+     * @return the maximum depth of the tree
+     */
+    public int getMaximumDepth() {
+        int maxDepth = Arrays.stream(height).max().getAsInt();
+        return maxDepth;
+    }
 
     /**
      * Returns the number of components.
@@ -188,6 +198,7 @@ public class UF_HWQUPC implements UF {
         	}
         }
     }
+    
 
     /**
      * This implements the single-pass path-halving mechanism of path compression
