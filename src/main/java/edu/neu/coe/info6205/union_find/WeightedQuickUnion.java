@@ -59,6 +59,11 @@ public class WeightedQuickUnion {
         }
     }
     
+    /**
+     * Returns the maximum depth of the tree.
+     *
+     * @return the maximum depth of the tree
+     */
     public int getMaximumDepth() {
         if(this.count() > 1){
             return -1;
@@ -98,11 +103,17 @@ public class WeightedQuickUnion {
     public int find(int p) {
         validate(p);
         int root = p;
+        
+        //If using path compression
         if(pathCompression) {
+        	
+        	//If using two pass path compression
         	if(typePathCompression == 1) {
         		while (root != parent[root]) {
                     root = parent[root];
                 }
+        		
+        		//Connect intermediate nodes to root
         		while (p != root) {
                     int newp = parent[p];
                     parent[p] = root;
@@ -110,6 +121,7 @@ public class WeightedQuickUnion {
                 }
         	}
         	
+        	//If using one pass path compression
         	else {
         		while (root != parent[root]) {
         			parent[root] = parent[parent[root]];
@@ -118,6 +130,7 @@ public class WeightedQuickUnion {
             }
         }
         
+        //If not using path compression
         else {	
         	while (root != parent[root]) {
                 root = parent[root];
